@@ -21,47 +21,74 @@ void mousad()
     freopen("output.txt", "w", stdout);
 #endif
 }
-vector<int> is_good(vector <int>& vec , int mid)
+void solve()
 {
-    int curr1 = 0 , curr2 = 0 ,limit = vec.size();
-    for (int i = 0; i < limit ;i++)
+    int n , q ;
+    cin >> n >> q;
+    vector<pair<int,int>> a(n);
+    vector<int> b(n);
+    for (int i = 0 ; i < n;i++)
     {
-        curr1 += abs(vec[i] - (mid-1));
-        curr2 += abs(vec[i] - (mid + 1));
+        cin >> a[i].first;
+        a[i].second = i;
     }
-    return { curr1 < curr2 , min(curr1, curr2)};
-}
-int BS(vector <int>& vec)
-{
-    int l = 0, r = 2e9, mid = 0, ans = LLONG_MAX;
-    while (l <= r)
+    sort(all(a));
+    int last = INT_MAX , rounds = 0 , size = 1 , j = 0;
+    for (int i = 0 ; i < n;i++)
     {
-        mid = l + (r - l) / 2;
-        vector<int> temp = is_good(vec, mid);
-        if (temp[0])
+        if(!(a[i].second > last))
         {
-            r = mid - 1;
+            while(j < i)
+            {
+                b[j++]= size;
+            }
+            size = 1;
+            rounds++;
         }
         else
         {
-            l = mid + 1;
+            size++;
         }
-        ans = min(ans , temp[1]);
+        last = a[i].second;
     }
-    return ans;
-}
-void solve()
-{
-    int n ;
-    cin >> n;
-    vector<int> a(n);
-    cin(a);
-    // if (a.size() == 1)
-    // {
-    //     cout << 0 << endl;
-    //     return;
-    // }
-    cout << BS(a) << endl;
+    while (j < n)
+    {
+        b[j++] = size;
+    }
+    for (int i = 0; i < q ;i++)
+    {
+        int x , y , diff = 0;  cin >> x >> y;
+        x--; y--;
+        bool xmerged = 0, ymerged = 0;
+        int temp = a[x].second;
+        a[x].second = a[y].second;
+        a[y].second = temp;
+        if ((x - 1 >= 0 && a[x-1].second < a[x].second) || (x + 1 < n && a[x+1].second > a[x].second ))
+        {
+            xmerged = true;
+        }
+        if ((y - 1 >= 0 && a[y-1].second < a[y].second) || (y + 1 < n && a[y+1].second > a[y].second))
+        {
+            ymerged = true;
+        }
+        if (xmerged && b[x] == 1)
+        {
+            diff--;
+        }
+        else if (!xmerged && b[x] > 1)
+        {
+            diff++;
+        }
+        if (ymerged && b[y] == 1)
+        {
+            diff--;
+        }
+        else if (!ymerged && b[y] > 1)
+        {
+            diff++;
+        }
+        cout << rounds + diff<< endl;
+    }
 }
 signed main()
 {
