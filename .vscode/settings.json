@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        ".fantomasignore": "ignore",
         "iostream": "cpp",
         "deque": "cpp",
         "forward_list": "cpp",
@@ -91,7 +92,10 @@
         "typeindex": "cpp",
         "typeinfo": "cpp",
         "valarray": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "generator": "cpp",
+        "print": "cpp",
+        "text_encoding": "cpp"
     },
     "cmake.configureOnOpen": true
 }

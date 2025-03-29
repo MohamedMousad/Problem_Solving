@@ -1,16 +1,21 @@
 #include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+#include <utility>
 using namespace std;
+using namespace __gnu_pbds;
 #define all(s) s.begin(), s.end()
 #define cin(vec)        \
     for (auto &i : vec) \
     cin >> i
-#define int long long
+#define int long long int
 #define ld long double
 #define Ceil(a, b) (a / b) + (a % b != 0)
 #define fill(i, a, b) for (long long i = a; i < b; i++)
 #define rep(n) for (int i = 0; i < n; i++)
 #define rrep(n) for (int i = n - 1; i >= 0; i--)
 #define e 1e-9
+#define ordered_set tree<pair<int,int>, null_type, less<pair<int,int>>, rb_tree_tag, tree_order_statistics_node_update>
 void mousad()
 {
     ios_base::sync_with_stdio(0);
@@ -23,78 +28,34 @@ void mousad()
 }
 void solve()
 {
-    int n , q ;
-    cin >> n >> q;
-    vector<pair<int,int>> a(n);
-    vector<int> b(n);
-    for (int i = 0 ; i < n;i++)
-    {
-        cin >> a[i].first;
-        a[i].second = i;
-    }
-    sort(all(a));
-    int last = INT_MAX , rounds = 0 , size = 1 , j = 0;
-    for (int i = 0 ; i < n;i++)
-    {
-        if(!(a[i].second > last))
-        {
-            while(j < i)
-            {
-                b[j++]= size;
+    int n , sumeven = 0 , sumodd = 0 , even = 0 , odd = 0;
+    cin >> n;vector<int> vec(n);cin(vec);sort(all(vec));
+    int ans = vec[n-1];
+    for(int i = n-1 ; i >= 0;i--){
+        if(vec[i]&1){
+            sumodd+=vec[i];
+            if (odd== 0){
+                odd = vec[i];
             }
-            size = 1;
-            rounds++;
         }
-        else
-        {
-            size++;
+        else{
+            if (even == 0){
+                even = vec[i];
+            }
+            sumeven+=vec[i];
         }
-        last = a[i].second;
     }
-    while (j < n)
-    {
-        b[j++] = size;
+    if(even != 0 && odd != 0){
+        cout << max(sumodd + even , sumeven + odd) << endl;
+        return;
     }
-    for (int i = 0; i < q ;i++)
-    {
-        int x , y , diff = 0;  cin >> x >> y;
-        x--; y--;
-        bool xmerged = 0, ymerged = 0;
-        int temp = a[x].second;
-        a[x].second = a[y].second;
-        a[y].second = temp;
-        if ((x - 1 >= 0 && a[x-1].second < a[x].second) || (x + 1 < n && a[x+1].second > a[x].second ))
-        {
-            xmerged = true;
-        }
-        if ((y - 1 >= 0 && a[y-1].second < a[y].second) || (y + 1 < n && a[y+1].second > a[y].second))
-        {
-            ymerged = true;
-        }
-        if (xmerged && b[x] == 1)
-        {
-            diff--;
-        }
-        else if (!xmerged && b[x] > 1)
-        {
-            diff++;
-        }
-        if (ymerged && b[y] == 1)
-        {
-            diff--;
-        }
-        else if (!ymerged && b[y] > 1)
-        {
-            diff++;
-        }
-        cout << rounds + diff<< endl;
-    }
+    cout << vec[n-1] << endl; 
 }
 signed main()
 {
     mousad();
     int n = 1;
-    // cin >> n;
+    cin >> n;
     while (n--)
     {
         solve();
