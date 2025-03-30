@@ -28,28 +28,61 @@ void mousad()
 }
 void solve()
 {
-    int n , sumeven = 0 , sumodd = 0 , even = 0 , odd = 0;
-    cin >> n;vector<int> vec(n);cin(vec);sort(all(vec));
-    int ans = vec[n-1];
-    for(int i = n-1 ; i >= 0;i--){
-        if(vec[i]&1){
-            sumodd+=vec[i];
-            if (odd== 0){
-                odd = vec[i];
-            }
+    string s , ss; char c ;
+    int n , k , sum = 0 , ans = 0;
+    cin >> n >> k >> s;
+    deque<int> a(n , 0) , b;cin(a);
+    priority_queue<int , vector<int> , greater<int>> pq;
+    for (int i = 0 ; i < n ;){
+        sum = 0;
+        while(s[i] == 'B' && i < n){
+            sum+=a[i];
+            c = s[i];
+            i++;
         }
-        else{
-            if (even == 0){
-                even = vec[i];
-            }
-            sumeven+=vec[i];
+        if (sum){
+            ss.push_back(c);
+            b.push_back(sum);
+            sum = 0;
+        }
+        while (s[i] == 'R' && i < n){
+            sum+=a[i];
+            c = s[i];
+            i++;
+        }
+        if(sum){
+            ss.push_back(c);
+            b.push_back(sum);
         }
     }
-    if(even != 0 && odd != 0){
-        cout << max(sumodd + even , sumeven + odd) << endl;
-        return;
+    if (!b.empty()){
+        if (ss[ss.size() - 1] == 'R') b.pop_back();
     }
-    cout << vec[n-1] << endl; 
+    if (!b.empty()){
+        if (ss[0] == 'R') b.pop_front();
+    }
+    int needed = count(all(ss) , 'B');  
+    int pen = needed - k;
+    if (pen < 0){
+        cout << 0 << endl;
+    }
+    else {
+        for (int i = 0 ; i < b.size() ;){
+            if ( i+1 < b.size()){
+                pq.push(min(b[i] , b[i+1]));
+                i+=2;
+            }
+            else {
+                pq.push(b[i]);
+                i++;
+            }
+        }
+        while (pen-- && !pq.empty()){
+            ans += pq.top();
+            pq.pop();
+        }
+        cout << ans << endl;
+    }
 }
 signed main()
 {
@@ -61,3 +94,76 @@ signed main()
         solve();
     }
 }
+    // int n , ans = 0 , sum = 0; 
+    // cin >> n; 
+    // vector<pair<int,int>> a(n , {0,0}) , c(n , {0,0});
+    // map<pair<int,int> , pair<bool,bool>> b;
+    // ordered_set s , ss;
+    // for (int i = 0 ; i < n ;i++){
+    // cin >> a[i].first >> a[i].second;
+    // }
+    // c = a;
+    // sort(all(a));
+    // for (int i = n-1 ; i >= 0;i--){
+    //     s.insert({a[i].second , i});
+    //     int x = s.order_of_key(a[i].second+1);
+    //     b[{a[i].first , a[i].second}].first = bool(x-1);
+    // }
+    // for (int i = 0 ; i < n;i++){
+    //     ss.insert(a[i].second);
+    //     int x = ss.insert(a[i].second);
+    //     b[{a[i].first , a[i].second}].second = bool(ss.size() - x-1);
+    // }
+    // for (int i = 0 ; i < n ;i++){
+        //     cout << b[{c[i].first , c[i].second}].first << " ";
+    // }
+    // cout << endl;
+    // for (int i = 0 ; i < n ;i++){
+    //     cout << b[{c[i].first , c[i].second}].second << " ";
+    // }
+
+
+    // int n , sum = 0;
+    // cin >> n;
+    // ordered_set a;
+    // for (int i = 0 ; i < n ;i++){
+    //     int x;cin >> x;
+    //     a.insert({x , i+1});
+    //     int y = a.order_of_key({x , 2e9});
+    //     if (y == 1){
+    //         cout << 0 << " ";
+    //     }
+    //     else {
+    //         cout << a.find_by_order(a.order_of_key({x-1 , 2e9}))->second << " ";
+    //     }
+    // }
+    // cout << endl;
+
+
+    // string s ;int n , L = 0 , I  = 0, T = 0; cin >> n; cin >> s;
+    // for (int i = 0 ; i < n;i++)
+    // {
+    //     if (s[i] == 'L'){
+    //         L++;
+    //     }
+    //     else if (s[i] == 'I'){
+    //         I++;
+    //     }
+    //     else if (s[i] == 'T'){
+    //         T++;
+    //     }
+    // }
+    // if (L == I == T){
+    //     cout << 0 << endl;
+    //     return;
+    // }
+    // else if (L == L + I + T || I == L + I + T || T == L + I + T){
+    //     cout << -1 << endl;
+    //     return;
+    // }
+    // else {
+    //     int needl = max(L , max(I , T)) - L , needi = max(L , max(I , T)) - I , needt = max(L , max(I , T)) - T;
+    //     if (needl + needi + needt > 2*n) {
+    //         cout << -1 << endl; return;
+    //     }
+    // }
