@@ -53,5 +53,12 @@
             ],
             "preLaunchTask": "Debuggy :/"
         }
-    ]
+    ],
+    "compounds": [],
+    "debug.internalConsoleOptions": "neverOpen",
+    "debug.openDebug": "openOnDebugBreak",
+    "debug.toolBarLocation": "floating",
+    "debug.inlineValues": true,
+    "debug.showBreakpointsInOverviewRuler": true,
+    "debug.defaultConfiguration": "GNU Debugger"
 }

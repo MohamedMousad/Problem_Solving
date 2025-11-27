@@ -1,4 +1,16 @@
 {
+    "editor.fontSize": 17,
+    "editor.fontWeight": "500",
+    "editor.lineHeight": 26,
+    "editor.cursorBlinking": "expand",
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.cursorWidth": 3,
+    "terminal.integrated.fontSize": 20,
+    "terminal.integrated.cursorStyle": "line",
+    "terminal.integrated.cursorWidth": 3,
+    "terminal.integrated.cursorStyleInactive": "outline",
+    "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.fontWeight": "bold",
     "files.associations": {
         ".fantomasignore": "ignore",
         "iostream": "cpp",
@@ -97,5 +109,16 @@
         "print": "cpp",
         "text_encoding": "cpp"
     },
-    "cmake.configureOnOpen": true
+    "C_Cpp.default.debuggerPath": "C:/msys64/mingw64/bin/gdb.exe",
+    "debug.onTaskErrors": "showErrors",
+    "debug.javascript.autoAttachFilter": "disabled",
+    "debug.allowBreakpointsEverywhere": true,
+    "debug.terminal.clearBeforeReusing": true,
+    "editor.defaultFormatter": "ms-vscode.cpptools",
+    "editor.formatOnSave": false,
+    "[cpp]": {
+        "debug.saveBeforeStart": "allEditorsInActiveGroup",
+        "editor.defaultFormatter": "ms-vscode.cpptools"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }
