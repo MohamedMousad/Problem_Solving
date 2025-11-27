@@ -1,0 +1,13 @@
+{
+    "code-runner.executorMap": {
+        "cpp": "cd $dir ; g++.exe $fileName -o $fileNameWithoutExt.exe ; $dir$fileNameWithoutExt.exe",
+        "python": "python -u"
+    },
+    "code-runner.runInTerminal": true,
+    "code-runner.saveFileBeforeRun": true,
+    "code-runner.preserveFocus": false,
+    "code-runner.clearPreviousOutput": true,
+    "files.associations": {
+        "iostream": "cpp"
+    }
+}
